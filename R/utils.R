@@ -293,7 +293,7 @@ write_rmd <- function(xml_folder, rmd, slds, rels,
   )
   pmap(list(.x = slds, .y = rels, .z = seq_along(slds)),
        function(.x, .y, .z)
-         cat(
+         cat("\n",
              extract_title(.x),
              extract_body(.x),
              tribble_code(extract_table(.x), tbl_num = .z),
