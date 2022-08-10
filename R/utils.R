@@ -129,8 +129,8 @@ extract_title <- function(sld) {
     title <- title[-grep("subTitle", classes)]
   }
 
-  out <- paste("# ", title, "\n")
-  out[!grepl("#   \n", out)]
+  out <- paste("## ", title, "\n")
+  out[!grepl("##   \n", out)]
 }
 
 #' Extract Subtitle from Title Slide
@@ -261,8 +261,7 @@ write_notes <- function(xml_folder) {
   sink(notes_out)
   map(seq_len(n_slides),
       ~paste0("\n",
-              "---",
-              "#", .,
+              "##", .,
               "\n",
               extract_notes(notes, ., inslides = FALSE),
               collapse = "\n")) %>%
@@ -294,7 +293,7 @@ write_rmd <- function(xml_folder, rmd, slds, rels,
   )
   pmap(list(.x = slds, .y = rels, .z = seq_along(slds)),
        function(.x, .y, .z)
-         cat("\n---",
+         cat(
              extract_title(.x),
              extract_body(.x),
              tribble_code(extract_table(.x), tbl_num = .z),

@@ -6,17 +6,19 @@
 #'  be included.
 #'
 write_theme <- function(theme) {
-  css_dir <- system.file('rmarkdown', 'templates', 'xaringan', 'resources',
-                       package = 'xaringan')
-  all_themes <- list.files(css_dir, '[.]css$')
+  css_dir <- system.file("rmarkdown", "templates", "xaringan", "resources",
+    package = "xaringan"
+  )
+  all_themes <- list.files(css_dir, "[.]css$")
 
   chosen_theme <- all_themes[grepl(theme, all_themes)]
   chosen_theme <- gsub("\\.css", "", chosen_theme)
 
   paste0('css: ["default", ',
-         paste0('"', chosen_theme, '"', collapse = ", "),
-         "]",
-         collapse = "")
+    paste0('"', chosen_theme, '"', collapse = ", "),
+    "]",
+    collapse = ""
+  )
 }
 
 #' Create the \href{https://github.com/yihui/xaringan}{xaringan} YAML Front
@@ -44,52 +46,49 @@ write_theme <- function(theme) {
 create_yaml <- function(xml_folder, title_sld, author = NULL, title = NULL,
                         sub = NULL, date = Sys.Date(), theme = "default",
                         highlightStyle = "github") {
-  if(is.null(author)) {
+  if (is.null(author)) {
     author <- extract_author(xml_folder)
   }
-  if(is.null(title)) {
-    ttl  <- extract_title(title_sld)
-    ttl  <- paste0("title: '",
-                   gsub("\t|\n", "", substr(ttl, 3, nchar(ttl))),
-                   "'")
+  if (is.null(title)) {
+    ttl <- extract_title(title_sld)
+    ttl <- paste0(
+      "title: '",
+      gsub("\t|\n", "", substr(ttl, 3, nchar(ttl))),
+      "'"
+    )
   }
-  if(is.null(sub)) {
+  if (is.null(sub)) {
     sub <- extract_subtitle(title_sld)
   }
-  if(!is.null(title)) ttl <- paste0("title: '", title, "'")
-  if(!is.null(sub)) sub  <- paste0("subtitle: ", sub)
+  if (!is.null(title)) ttl <- paste0("title: '", title, "'")
+  if (!is.null(sub)) sub <- paste0("subtitle: ", sub)
 
   date <- paste0("date: ", date)
-  hls  <- paste0("highlightStyle: ",  highlightStyle)
+  hls <- paste0("highlightStyle: ", highlightStyle)
 
-  if(theme != "default") {
-    css  <- write_theme(theme)
+  if (theme != "default") {
+    css <- write_theme(theme)
   } else {
     css <- NULL
   }
 
-  if(length(author) == 1) {
+  if (length(author) == 1) {
     auth <- paste0("author: ", author)
   }
-  if(length(author) > 1) {
-    auth <- paste0("author:\n",
-                   paste0("  - ", author, collapse = "\n"))
+  if (length(author) > 1) {
+    auth <- paste0(
+      "author:\n",
+      paste0("  - ", author, collapse = "\n")
+    )
   }
-  elements <- list("---",
-                   ttl,
-                   sub,
-                   auth,
-                   date,
-                   "output:",
-                   "  xaringan::moon_reader:",
-                   css,
-                   "  lib_dir: libs",
-                   "  nature:",
-                   paste0("    ", hls),
-                   "    highlightLines: true",
-                   "    countIncrementalSlides: false")
+  elements <- list(
+    "---",
+    ttl,
+    sub,
+    date,
+    "format: reveajs"
+  )
   elements <- elements[!map_lgl(elements, is.null)]
 
   paste0(elements, collapse = "\n")
 }
-
