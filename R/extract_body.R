@@ -164,4 +164,3 @@ extract_body <- function(sld) {
     insert_bullets() %>%
     body_text()
 }
-

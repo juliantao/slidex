@@ -22,7 +22,7 @@ possible, maintaining tables, figures, links, and bulleted lists.
 The package is not yet on CRAN. Install the development version with
 
 ``` r
-devtools::install_github("datalorax/slidex")
+devtools::install_github("juliantao/slidex")
 ```
 
 ## Basic usage
