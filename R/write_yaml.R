@@ -86,7 +86,7 @@ create_yaml <- function(xml_folder, title_sld, author = NULL, title = NULL,
     ttl,
     sub,
     date,
-    "format: reveajs",
+    "format: revealjs",
     "---"
   )
   elements <- elements[!map_lgl(elements, is.null)]
