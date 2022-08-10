@@ -41,9 +41,9 @@ extract_image <- function(sld, rel) {
   out <- paste0("![](img/", imgs, ")")
   if (length(out) == 2) {
     out <- paste0(
-      "::: {layout-ncol=2}",
-      ", out[1], ", "\n\n",
-      ", out[2], ",
+      "::: {layout-ncol=2}", "\n",
+      out[1], "\n\n",
+      out[2], "\n",
       ":::"
     )
   }
