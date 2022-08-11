@@ -82,9 +82,4 @@ convert_pptx <- function(path, author = NULL, title = NULL, sub = NULL,
   unlink(xml, recursive = TRUE)
   file.copy(basepath, out_dir, recursive = TRUE)
   unlink(basepath, recursive = TRUE, force = TRUE)
-
-  system(paste(Sys.getenv("R_BROWSER"),
-               file.path(out_dir,
-                         gsub("\\.qmd", "", basename(rmd)),
-                         basename(rmd))))
 }
